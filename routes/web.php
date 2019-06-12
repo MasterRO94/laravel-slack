@@ -15,3 +15,4 @@ Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 
 Route::get('send-message-one', 'TempController@sendMessageOne');
 Route::get('send-message-two', 'TempController@sendMessageTwo');
+Route::get('send-message-files', 'TempController@sendMessageFiles');
