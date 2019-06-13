@@ -2,6 +2,10 @@
 
 namespace App\Handlers;
 
+use App\RequestBody\Json\Dialog;
+use App\RequestBody\Json\DialogElement;
+use App\RequestBody\Json\JsonBodyObject;
+use App\Services\SlackApi;
 use Illuminate\Support\Arr;
 
 /**
@@ -23,6 +27,29 @@ class TempHandlerOne extends BaseHandler
 
     public function handle()
     {
-        logger('Logged in TempHandlerOne');
+        $api =  resolve(SlackApi::class);
+        $payload = json_decode($this->request->get('payload'), true);
+        $triggerId = Arr::get($payload, 'trigger_id');
+
+        $jsonObject = new JsonBodyObject();
+        $jsonObject->setTriggerId($triggerId);
+
+        $dialog = new Dialog();
+        $dialog->setCallbackId('dialog-callback');
+        $dialog->setTitle('Question');
+        $dialog->setSubmitLabel('Save');
+        $dialog->setState('some state');
+
+        $element = new DialogElement();
+        $element->setName('reason');
+        $element->setLabel('.');
+        $element->setType(DialogElement::TEXT_TYPE);
+
+        $dialog->addElement($element);
+        $jsonObject->setDialog($dialog);
+
+        logger($jsonObject->toArray());
+
+        $api->post('dialog.open', $jsonObject->toArray());
     }
 }

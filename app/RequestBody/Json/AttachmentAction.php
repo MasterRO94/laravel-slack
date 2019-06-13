@@ -32,11 +32,16 @@ class AttachmentAction
     private $value;
 
     /**
-     * @param string $type
+     * @var string
+     */
+    private $style;
+
+    /**
+     * @param string|null $type
      *
      * @return \App\RequestBody\Json\AttachmentAction
      */
-    public function setType(string $type): self
+    public function setType(?string $type): self
     {
         $this->type = $type;
 
@@ -56,11 +61,11 @@ class AttachmentAction
     }
 
     /**
-     * @param string $text
+     * @param string|null $text
      *
-     * @return AttachmentAction
+     * @return \App\RequestBody\Json\AttachmentAction
      */
-    public function setText(string $text): self
+    public function setText(?string $text): self
     {
         $this->text = $text;
 
@@ -80,6 +85,18 @@ class AttachmentAction
     }
 
     /**
+     * @param string|null $style
+     *
+     * @return \App\RequestBody\Json\AttachmentAction
+     */
+    public function setStyle(?string $style): self
+    {
+        $this->style = $style;
+
+        return $this;
+    }
+
+    /**
      * @return array
      */
     public function toArray(): array
@@ -89,6 +106,7 @@ class AttachmentAction
             'name'  => $this->name,
             'text'  => $this->text,
             'value' => $this->value,
+            'style' => $this->style,
         ];
     }
 }

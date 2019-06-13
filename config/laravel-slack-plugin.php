@@ -1,11 +1,15 @@
 <?php
 
 return [
+    /*
+     * OAuth Access Token from Slack App
+     */
+    'user-token' => env('SLACK_USER_TOKEN', null),
 
     /*
-     * OAUTH token from Slack App
+     * Bot User OAuth Access from Slack App
      */
-    'token' => env('SLACK_TOKEN', null),
+    'bot-token' => env('SLACK_BOT_TOKEN', null),
 
     /*
      * Verification token from Slack App
@@ -19,5 +23,44 @@ return [
         // temp testing handlers
         \App\Handlers\TempHandlerOne::class,
         \App\Handlers\TempHandlerTwo::class,
+    ],
+
+    /*
+     * Slack Api Methods which are available in plugin
+     */
+    'methods' => [
+        'POST' => [
+            'chat.postMessage' => [
+                'url'       => 'https://slack.com/api/chat.postMessage',
+                'headers'   => [
+                    'Content-type'  => 'application/json',
+                    'Authorization' => "",
+                ],
+                'body-type' => 'json',
+            ],
+            'chat.update'      => [
+                'url'       => 'https://slack.com/api/chat.update',
+                'headers'   => [
+                    'Content-type'  => 'application/json',
+                    'Authorization' => "",
+                ],
+                'body-type' => 'json',
+            ],
+            'dialog.open'      => [
+                'url'       => 'https://slack.com/api/dialog.open',
+                'headers'   => [
+                    'Content-type'  => 'application/json',
+                    'Authorization' => "",
+                ],
+                'body-type' => 'json',
+            ],
+            'files.upload'     => [
+                'url'       => 'https://slack.com/api/files.upload',
+                'headers'   => [
+                    'Authorization' => "",
+                ],
+                'body-type' => 'multipart',
+            ],
+        ],
     ],
 ];

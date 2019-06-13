@@ -5,11 +5,11 @@ namespace App\RequestBody\Json;
 use Illuminate\Support\Collection;
 
 /**
- * Class JsonBody
+ * Class JsonBodyObject
  *
  * @package App\RequestBody
  */
-class JsonBody
+class JsonBodyObject
 {
     /**
      * @var string
@@ -62,7 +62,7 @@ class JsonBody
     /**
      * @param string $channel
      *
-     * @return JsonBody
+     * @return JsonBodyObject
      */
     public function setChannel(string $channel): self
     {
@@ -74,7 +74,7 @@ class JsonBody
     /**
      * @param string $triggerId
      *
-     * @return JsonBody
+     * @return JsonBodyObject
      */
     public function setTriggerId(string $triggerId): self
     {
@@ -86,7 +86,7 @@ class JsonBody
     /**
      * @param bool $asUser
      *
-     * @return JsonBody
+     * @return JsonBodyObject
      */
     public function setAsUser(bool $asUser): self
     {
@@ -98,7 +98,7 @@ class JsonBody
     /**
      * @param bool $replaceOriginal
      *
-     * @return JsonBody
+     * @return JsonBodyObject
      */
     public function setReplaceOriginal(bool $replaceOriginal): self
     {
@@ -110,7 +110,7 @@ class JsonBody
     /**
      * @param string $ts
      *
-     * @return JsonBody
+     * @return JsonBodyObject
      */
     public function setTs(string $ts): self
     {
@@ -122,7 +122,7 @@ class JsonBody
     /**
      * @param string $text
      *
-     * @return JsonBody
+     * @return JsonBodyObject
      */
     public function setText(string $text): self
     {
@@ -134,7 +134,7 @@ class JsonBody
     /**
      * @param \App\RequestBody\Json\Dialog $dialog
      *
-     * @return \App\RequestBody\Json\JsonBody
+     * @return \App\RequestBody\Json\JsonBodyObject
      */
     public function setDialog(Dialog $dialog): self
     {
@@ -146,13 +146,21 @@ class JsonBody
     /**
      * @param \App\RequestBody\Json\Attachment $attachment
      *
-     * @return JsonBody
+     * @return JsonBodyObject
      */
     public function addAttachment(Attachment $attachment): self
     {
         $this->attachments->add($attachment);
 
         return $this;
+    }
+
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    public function getAttachments(): Collection
+    {
+        return $this->attachments;
     }
 
     /**
@@ -167,7 +175,7 @@ class JsonBody
             'as_user'          => $this->asUser,
             'replace_original' => $this->replaceOriginal,
             'text'             => $this->text,
-            'dialog'           => $this->dialog,
+            'dialog'           => $this->dialog->toArray(),
             'attachments'      => $this->attachments->map(function (Attachment $attachment) {
                 return $attachment->toArray();
             })->all(),

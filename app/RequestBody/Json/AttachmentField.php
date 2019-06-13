@@ -25,11 +25,11 @@ class AttachmentField
     private $short;
 
     /**
-     * @param string $title
+     * @param string|null $title
      *
-     * @return AttachmentField
+     * @return \App\RequestBody\Json\AttachmentField
      */
-    public function setTitle(string $title): self
+    public function setTitle(?string $title): self
     {
         $this->title = $title;
 
@@ -49,11 +49,11 @@ class AttachmentField
     }
 
     /**
-     * @param bool $short
+     * @param bool|null $short
      *
-     * @return AttachmentField
+     * @return \App\RequestBody\Json\AttachmentField
      */
-    public function setShort(bool $short): self
+    public function setShort(?bool $short): self
     {
         $this->short = $short;
 

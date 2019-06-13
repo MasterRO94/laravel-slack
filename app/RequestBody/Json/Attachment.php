@@ -59,11 +59,11 @@ class  Attachment
     }
 
     /**
-     * @param string $type
+     * @param string|null $type
      *
      * @return \App\RequestBody\Json\Attachment
      */
-    public function setType(string $type): self
+    public function setType(?string $type): self
     {
         $this->type = $type;
 
@@ -71,11 +71,11 @@ class  Attachment
     }
 
     /**
-     * @param string $callbackId
+     * @param string|null $callbackId
      *
      * @return \App\RequestBody\Json\Attachment
      */
-    public function setCallbackId(string $callbackId): self
+    public function setCallbackId(?string $callbackId): self
     {
         $this->callbackId = $callbackId;
 
@@ -83,11 +83,11 @@ class  Attachment
     }
 
     /**
-     * @param string $fallback
+     * @param string|null $fallback
      *
      * @return \App\RequestBody\Json\Attachment
      */
-    public function setFallback(string $fallback): self
+    public function setFallback(?string $fallback): self
     {
         $this->fallback = $fallback;
 
@@ -95,11 +95,11 @@ class  Attachment
     }
 
     /**
-     * @param string $text
+     * @param string|null $text
      *
      * @return \App\RequestBody\Json\Attachment
      */
-    public function setText(string $text): self
+    public function setText(?string $text): self
     {
         $this->text = $text;
 
@@ -107,11 +107,11 @@ class  Attachment
     }
 
     /**
-     * @param string $color
+     * @param string|null $color
      *
      * @return \App\RequestBody\Json\Attachment
      */
-    public function setColor(string $color): self
+    public function setColor(?string $color): self
     {
         $this->color = $color;
 
@@ -140,6 +140,22 @@ class  Attachment
         $this->fields->add($field);
 
         return $this;
+    }
+
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    public function getFields(): Collection
+    {
+        return $this->fields;
+    }
+
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    public function getActions(): Collection
+    {
+        return $this->actions;
     }
 
     /**

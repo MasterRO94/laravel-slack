@@ -5,11 +5,11 @@ namespace App\RequestBody\Multipart;
 /**
  * Multipart form-data body for uploading files
  *
- * Class FileItem
+ * Class FileItemObject
  *
  * @package App\RequestBody
  */
-class FileItem
+class FileItemObject
 {
     /**
      * @var string
@@ -39,7 +39,7 @@ class FileItem
     /**
      * @param string $fileName
      *
-     * @return FileItem
+     * @return FileItemObject
      */
     public function setFileName(string $fileName): self
     {
@@ -51,7 +51,7 @@ class FileItem
     /**
      * @param string $filePath
      *
-     * @return FileItem
+     * @return FileItemObject
      */
     public function setFilePath(string $filePath): self
     {
@@ -63,7 +63,7 @@ class FileItem
     /**
      * @param string $fileType
      *
-     * @return FileItem
+     * @return FileItemObject
      */
     public function setFileType(string $fileType): self
     {
@@ -75,7 +75,7 @@ class FileItem
     /**
      * @param string $initialComment
      *
-     * @return FileItem
+     * @return FileItemObject
      */
     public function setInitialComment(string $initialComment): self
     {
@@ -87,7 +87,7 @@ class FileItem
     /**
      * @param string $channels
      *
-     * @return FileItem
+     * @return FileItemObject
      */
     public function setChannels(string $channels): self
     {
