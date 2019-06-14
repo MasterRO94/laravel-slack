@@ -150,7 +150,7 @@ class JsonBodyObject
      */
     public function addAttachment(Attachment $attachment): self
     {
-        $this->attachments->add($attachment);
+        $this->attachments->push($attachment);
 
         return $this;
     }

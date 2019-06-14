@@ -51,7 +51,7 @@ class Dialog
      */
     public function addElement(DialogElement $element): self
     {
-        $this->elements->add($element);
+        $this->elements->push($element);
 
         return $this;
     }

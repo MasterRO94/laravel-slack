@@ -125,7 +125,7 @@ class  Attachment
      */
     public function addAction(AttachmentAction $action): self
     {
-        $this->actions->add($action);
+        $this->actions->push($action);
 
         return $this;
     }
@@ -137,7 +137,7 @@ class  Attachment
      */
     public function addField(AttachmentField $field): self
     {
-        $this->fields->add($field);
+        $this->fields->push($field);
 
         return $this;
     }
