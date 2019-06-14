@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Handlers;
+namespace Pdffiller\LaravelSlack\Handlers;
 
 /**
  * Interface BaseHandleInterface

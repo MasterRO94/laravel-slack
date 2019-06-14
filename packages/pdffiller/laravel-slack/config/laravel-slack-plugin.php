@@ -20,7 +20,6 @@ return [
      * Handlers are processed by controller
      */
     'handlers' => [
-        \App\Handlers\TempHandlerOne::class
     ],
 
     /*

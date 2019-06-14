@@ -2,11 +2,12 @@
 
 namespace App\Handlers;
 
-use App\RequestBody\Json\Dialog;
-use App\RequestBody\Json\DialogElement;
-use App\RequestBody\Json\JsonBodyObject;
-use App\Services\SlackApi;
 use Illuminate\Support\Arr;
+use Pdffiller\LaravelSlack\Handlers\BaseHandler;
+use Pdffiller\LaravelSlack\RequestBody\Json\Dialog;
+use Pdffiller\LaravelSlack\RequestBody\Json\DialogElement;
+use Pdffiller\LaravelSlack\RequestBody\Json\JsonBodyObject;
+use Pdffiller\LaravelSlack\Services\SlackApi;
 
 /**
  * Class TempHandlerOne

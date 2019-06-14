@@ -1,0 +1,23 @@
+{
+    "name": "vladyslav/laravel-slack",
+    "description": "Slack plugin",
+    "authors": [
+        {
+            "name": "Lysenko Vladyslav",
+            "email": "lysenko.vladyslav@pdffiller.team"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "ext-json": "*",
+        "fideloper/proxy": "^4.0",
+        "guzzlehttp/guzzle": "^6.3"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Pdffiller\\LaravelSlack\\LaravelSlackServiceProvider"
+            ]
+        }
+    }
+}

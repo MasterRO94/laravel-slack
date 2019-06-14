@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\RequestBody\Json\Attachment;
-use App\RequestBody\Json\AttachmentAction;
-use App\RequestBody\Json\AttachmentField;
-use App\RequestBody\Json\JsonBodyObject;
-use App\RequestBody\Multipart\FileItemObject;
-use App\Services\ResponseArrayToObjectBodyConverter;
-use App\Services\SlackApi;
 use GuzzleHttp\Client;
 use Monolog\Formatter\ChromePHPFormatter;
+use Pdffiller\LaravelSlack\RequestBody\Json\Attachment;
+use Pdffiller\LaravelSlack\RequestBody\Json\AttachmentAction;
+use Pdffiller\LaravelSlack\RequestBody\Json\AttachmentField;
+use Pdffiller\LaravelSlack\RequestBody\Json\JsonBodyObject;
+use Pdffiller\LaravelSlack\RequestBody\Multipart\FileItemObject;
+use Pdffiller\LaravelSlack\Services\ResponseArrayToObjectBodyConverter;
+use Pdffiller\LaravelSlack\Services\SlackApi;
 
 class TempController extends Controller
 {
@@ -71,7 +71,7 @@ class TempController extends Controller
         return $jsonBody;
     }
 
-    public function sendMessageOne(SlackApi $api, ResponseArrayToObjectBodyConverter $converter)
+    public function sendMessage(SlackApi $api, ResponseArrayToObjectBodyConverter $converter)
     {
         // create
         $jsonBody = $this->getMessage();
@@ -83,36 +83,6 @@ class TempController extends Controller
 //        $textAttachment->setText("this is NEEWWW text");
 //        $object->getAttachments()->add($textAttachment);
 //        $api->post('chat.update', $object->toArray());
-    }
-
-    public function sendMessageTwo()
-    {
-        $test101Id = 'GJLMZ7ER1';
-
-        $jsonBody = new JsonBodyObject();
-        $jsonBody->setChannel($test101Id)
-                 ->setReplaceOriginal(true)
-                 ->setAsUser(false);
-
-        $attachment = new Attachment();
-        $attachment->setCallbackId('clbck-one')
-                   ->setFallback('Fallback text')
-                   ->setType('default');
-        $action1 = new AttachmentAction();
-        $action1->setType('button')
-                ->setName('temp-name')
-                ->setText('Accept')
-                ->setValue(1);
-        $action2 = new AttachmentAction();
-        $action2->setType('button')
-                ->setName('temp-name')
-                ->setText('Decline')
-                ->setValue(0);
-        $attachment->addAction($action1)->addAction($action2);
-        $jsonBody->addAttachment($attachment);
-
-        $s = resolve(SlackApi::class);
-        $response = $s->post('chat.postMessage', $jsonBody->toArray());
     }
 
     public function sendMessageFiles()

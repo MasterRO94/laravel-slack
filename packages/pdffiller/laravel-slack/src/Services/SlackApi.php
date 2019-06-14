@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace Pdffiller\LaravelSlack\Services;
 
 use GuzzleHttp\Client;
 use Illuminate\Config\Repository;

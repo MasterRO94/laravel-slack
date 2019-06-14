@@ -166,6 +166,7 @@ return [
          * Package Service Providers...
          */
         Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
+        Pdffiller\LaravelSlack\LaravelSlackServiceProvider::class,
 
         /*
          * Application Service Providers...

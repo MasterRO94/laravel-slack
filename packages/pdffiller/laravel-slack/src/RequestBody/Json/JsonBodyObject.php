@@ -1,13 +1,13 @@
 <?php
 
-namespace App\RequestBody\Json;
+namespace Pdffiller\LaravelSlack\RequestBody\Json;
 
 use Illuminate\Support\Collection;
 
 /**
  * Class JsonBodyObject
  *
- * @package App\RequestBody
+ * @package Pdffiller\LaravelSlack\RequestBody\Json
  */
 class JsonBodyObject
 {
@@ -47,7 +47,7 @@ class JsonBodyObject
     private $attachments;
 
     /**
-     * @var \App\RequestBody\Json\Dialog
+     * @var \Pdffiller\LaravelSlack\RequestBody\Json\Dialog
      */
     private $dialog;
 
@@ -132,9 +132,9 @@ class JsonBodyObject
     }
 
     /**
-     * @param \App\RequestBody\Json\Dialog $dialog
+     * @param \Pdffiller\LaravelSlack\RequestBody\Json\Dialog $dialog
      *
-     * @return \App\RequestBody\Json\JsonBodyObject
+     * @return \Pdffiller\LaravelSlack\RequestBody\Json\JsonBodyObject
      */
     public function setDialog(Dialog $dialog): self
     {
@@ -144,9 +144,9 @@ class JsonBodyObject
     }
 
     /**
-     * @param \App\RequestBody\Json\Attachment $attachment
+     * @param \Pdffiller\LaravelSlack\RequestBody\Json\Attachment $attachment
      *
-     * @return JsonBodyObject
+     * @return \Pdffiller\LaravelSlack\RequestBody\Json\JsonBodyObject
      */
     public function addAttachment(Attachment $attachment): self
     {
@@ -175,7 +175,7 @@ class JsonBodyObject
             'as_user'          => $this->asUser,
             'replace_original' => $this->replaceOriginal,
             'text'             => $this->text,
-            'dialog'           => $this->dialog->toArray(),
+            'dialog'           => $this->dialog ? $this->dialog->toArray() : null,
             'attachments'      => $this->attachments->map(function (Attachment $attachment) {
                 return $attachment->toArray();
             })->all(),

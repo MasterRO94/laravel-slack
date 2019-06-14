@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace Pdffiller\LaravelSlack\Services;
 
 use App\RequestBody\Json\Attachment;
 use App\RequestBody\Json\AttachmentAction;

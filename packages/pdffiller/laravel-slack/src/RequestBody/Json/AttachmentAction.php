@@ -1,11 +1,11 @@
 <?php
 
-namespace App\RequestBody\Json;
+namespace Pdffiller\LaravelSlack\RequestBody\Json;
 
 /**
  * Class AttachmentAction
  *
- * @package App\RequestBody\Json
+ * @package Pdffiller\LaravelSlack\RequestBody\Json
  */
 class AttachmentAction
 {
@@ -39,7 +39,7 @@ class AttachmentAction
     /**
      * @param string|null $type
      *
-     * @return \App\RequestBody\Json\AttachmentAction
+     * @return \Pdffiller\LaravelSlack\RequestBody\Json\AttachmentAction
      */
     public function setType(?string $type): self
     {
@@ -51,7 +51,7 @@ class AttachmentAction
     /**
      * @param $name
      *
-     * @return AttachmentAction
+     * @return \Pdffiller\LaravelSlack\RequestBody\Json\AttachmentAction
      */
     public function setName($name): self
     {
@@ -63,7 +63,7 @@ class AttachmentAction
     /**
      * @param string|null $text
      *
-     * @return \App\RequestBody\Json\AttachmentAction
+     * @return \Pdffiller\LaravelSlack\RequestBody\Json\AttachmentAction
      */
     public function setText(?string $text): self
     {
@@ -75,7 +75,7 @@ class AttachmentAction
     /**
      * @param $value
      *
-     * @return AttachmentAction
+     * @return \Pdffiller\LaravelSlack\RequestBody\Json\AttachmentAction
      */
     public function setValue($value): self
     {
@@ -87,7 +87,7 @@ class AttachmentAction
     /**
      * @param string|null $style
      *
-     * @return \App\RequestBody\Json\AttachmentAction
+     * @return \Pdffiller\LaravelSlack\RequestBody\Json\AttachmentAction
      */
     public function setStyle(?string $style): self
     {

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Middleware;
+namespace Pdffiller\LaravelSlack;
 
 use Closure;
 use Illuminate\Support\Arr;

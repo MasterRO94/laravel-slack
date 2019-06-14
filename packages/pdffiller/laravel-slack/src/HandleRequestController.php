@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Pdffiller\LaravelSlack;
 
-use App\Handlers\BaseHandleInterface;
-use App\Handlers\BaseHandler;
 use Illuminate\Config\Repository;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Pdffiller\LaravelSlack\Handlers\BaseHandleInterface;
+use Pdffiller\LaravelSlack\Handlers\BaseHandler;
 
 /**
  * Class HandleRequestController
@@ -43,7 +44,7 @@ class HandleRequestController extends Controller
     /**
      * @param \Illuminate\Http\Request $request
      *
-     * @return \App\Handlers\BaseHandler
+     * @return \Pdffiller\LaravelSlack\Handlers\BaseHandler
      * @throws \Exception
      */
     private function getHandler(Request $request): BaseHandler

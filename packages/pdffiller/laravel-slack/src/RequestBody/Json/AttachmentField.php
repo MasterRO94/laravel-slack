@@ -1,11 +1,11 @@
 <?php
 
-namespace App\RequestBody\Json;
+namespace Pdffiller\LaravelSlack\RequestBody\Json;
 
 /**
  * Class AttachmentField
  *
- * @package App\RequestBody\Json
+ * @package Pdffiller\LaravelSlack\RequestBody\Json
  */
 class AttachmentField
 {
@@ -27,7 +27,7 @@ class AttachmentField
     /**
      * @param string|null $title
      *
-     * @return \App\RequestBody\Json\AttachmentField
+     * @return \Pdffiller\LaravelSlack\RequestBody\Json\AttachmentField
      */
     public function setTitle(?string $title): self
     {
@@ -51,7 +51,7 @@ class AttachmentField
     /**
      * @param bool|null $short
      *
-     * @return \App\RequestBody\Json\AttachmentField
+     * @return \Pdffiller\LaravelSlack\RequestBody\Json\AttachmentField
      */
     public function setShort(?bool $short): self
     {

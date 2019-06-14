@@ -1,11 +1,11 @@
 <?php
 
-namespace App\RequestBody\Json;
+namespace Pdffiller\LaravelSlack\RequestBody\Json;
 
 /**
  * Class DialogElement
  *
- * @package App\RequestBody\Json
+ * @package Pdffiller\LaravelSlack\RequestBody\Json
  */
 class DialogElement
 {

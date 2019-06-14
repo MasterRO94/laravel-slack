@@ -1,13 +1,12 @@
 <?php
 
-namespace App\RequestBody\Multipart;
+namespace Pdffiller\LaravelSlack\RequestBody\Multipart;
 
 /**
  * Multipart form-data body for uploading files
- *
  * Class FileItemObject
  *
- * @package App\RequestBody
+ * @package Pdffiller\LaravelSlack\RequestBody\Multipart
  */
 class FileItemObject
 {

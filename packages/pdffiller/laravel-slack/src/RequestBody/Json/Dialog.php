@@ -1,9 +1,14 @@
 <?php
 
-namespace App\RequestBody\Json;
+namespace Pdffiller\LaravelSlack\RequestBody\Json;
 
 use Illuminate\Support\Collection;
 
+/**
+ * Class Dialog
+ *
+ * @package Pdffiller\LaravelSlack\RequestBody\Json
+ */
 class Dialog
 {
     /**
@@ -40,9 +45,9 @@ class Dialog
     }
 
     /**
-     * @param \App\RequestBody\Json\DialogElement $element
+     * @param \Pdffiller\LaravelSlack\RequestBody\Json\DialogElement $element
      *
-     * @return \App\RequestBody\Json\Dialog
+     * @return \Pdffiller\LaravelSlack\RequestBody\Json\Dialog
      */
     public function addElement(DialogElement $element): self
     {

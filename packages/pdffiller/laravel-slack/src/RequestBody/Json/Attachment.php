@@ -1,13 +1,13 @@
 <?php
 
-namespace App\RequestBody\Json;
+namespace Pdffiller\LaravelSlack\RequestBody\Json;
 
 use Illuminate\Support\Collection;
 
 /**
  * Class Attachment
  *
- * @package App\RequestBody\Json
+ * @package Pdffiller\LaravelSlack\RequestBody\Json
  */
 class  Attachment
 {
@@ -61,7 +61,7 @@ class  Attachment
     /**
      * @param string|null $type
      *
-     * @return \App\RequestBody\Json\Attachment
+     * @return \Pdffiller\LaravelSlack\RequestBody\Json\Attachment
      */
     public function setType(?string $type): self
     {
@@ -73,7 +73,7 @@ class  Attachment
     /**
      * @param string|null $callbackId
      *
-     * @return \App\RequestBody\Json\Attachment
+     * @return \Pdffiller\LaravelSlack\RequestBody\Json\Attachment
      */
     public function setCallbackId(?string $callbackId): self
     {
@@ -85,7 +85,7 @@ class  Attachment
     /**
      * @param string|null $fallback
      *
-     * @return \App\RequestBody\Json\Attachment
+     * @return \Pdffiller\LaravelSlack\RequestBody\Json\Attachment
      */
     public function setFallback(?string $fallback): self
     {
@@ -97,7 +97,7 @@ class  Attachment
     /**
      * @param string|null $text
      *
-     * @return \App\RequestBody\Json\Attachment
+     * @return \Pdffiller\LaravelSlack\RequestBody\Json\Attachment
      */
     public function setText(?string $text): self
     {
@@ -109,7 +109,7 @@ class  Attachment
     /**
      * @param string|null $color
      *
-     * @return \App\RequestBody\Json\Attachment
+     * @return \Pdffiller\LaravelSlack\RequestBody\Json\Attachment
      */
     public function setColor(?string $color): self
     {
@@ -119,9 +119,9 @@ class  Attachment
     }
 
     /**
-     * @param \App\RequestBody\Json\AttachmentAction $action
+     * @param \Pdffiller\LaravelSlack\RequestBody\Json\AttachmentAction $action
      *
-     * @return \App\RequestBody\Json\Attachment
+     * @return \Pdffiller\LaravelSlack\RequestBody\Json\Attachment
      */
     public function addAction(AttachmentAction $action): self
     {
@@ -131,9 +131,9 @@ class  Attachment
     }
 
     /**
-     * @param \App\RequestBody\Json\AttachmentField $field
+     * @param \Pdffiller\LaravelSlack\RequestBody\Json\AttachmentField $field
      *
-     * @return \App\RequestBody\Json\Attachment
+     * @return \Pdffiller\LaravelSlack\RequestBody\Json\Attachment
      */
     public function addField(AttachmentField $field): self
     {
