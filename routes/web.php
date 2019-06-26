@@ -1,16 +1,12 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+use Pdffiller\LaravelSlack\VerifySlackToken;
 
-Route::get('/', function () {
-    return view('welcome');
+/*
+ * Slack app interaction
+ */
+Route::group([
+    'middleware' => [VerifySlackToken::class],
+], function () {
+    Route::post('slack/handle', 'Pdffiller\LaravelSlack\HandleRequestController@handle');
 });
