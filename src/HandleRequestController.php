@@ -37,6 +37,11 @@ class HandleRequestController extends Controller
      */
     public function handle(Request $request)
     {
+        // temp
+        if ($request->has('challenge') && $request->has('type') && $request->get('type') == "url_verification") {
+            return response()->json([
+                'challenge' => $request->get('challenge')]);
+        }
         $handler = $this->getHandler($request);
         $handler->handle();
     }
