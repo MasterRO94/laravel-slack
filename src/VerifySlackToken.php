@@ -23,7 +23,7 @@ class VerifySlackToken
     public function handle($request, Closure $next)
     {
         // Allow only verified requests
-        $payload = null;
+        $payload = [];
         if ($request->has('payload')) {
             $payload = \GuzzleHttp\json_decode($request->get('payload'), true);
         }
