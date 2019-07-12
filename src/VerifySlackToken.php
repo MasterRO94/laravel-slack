@@ -23,7 +23,11 @@ class VerifySlackToken
     public function handle($request, Closure $next)
     {
         // Allow only verified requests
-        $payload = \GuzzleHttp\json_decode($request->get('payload'), true);
+        $payload = null;
+        if ($request->has('payload')) {
+            $payload = \GuzzleHttp\json_decode($request->get('payload'), true);
+        }
+
         $verificationToken = $request->get('token') ?? Arr::get($payload, 'token');
         if (!$verificationToken || $verificationToken !== config('laravel-slack-plugin.verification_token')) {
             throw new AccessDeniedException('Slack Verification token does not exist or is not valid');
