@@ -13,6 +13,11 @@
         "guzzlehttp/guzzle": "^6.3",
         "illuminate/contracts": "^5.7"
     },
+    "autoload": {
+        "psr-4": {
+            "Pdffiller\\LaravelSlack\\": "src"
+        }
+    },
     "extra": {
         "laravel": {
             "providers": [
