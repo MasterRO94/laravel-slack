@@ -33,26 +33,28 @@ class HandleRequestController extends Controller
     /**
      * @param \Illuminate\Http\Request $request
      *
-     * @throws \Exception
+     * @return mixed
      */
     public function handle(Request $request)
     {
-        // temp
+        // for slack events
         if ($request->has('challenge') && $request->has('type') && $request->get('type') == "url_verification") {
             return response()->json([
-                'challenge' => $request->get('challenge')]);
+                'challenge' => $request->get('challenge'),
+            ]);
         }
         $handler = $this->getHandler($request);
-        $handler->handle();
+        if ($handler) {
+            $handler->handle();
+        }
     }
 
     /**
      * @param \Illuminate\Http\Request $request
      *
-     * @return \Pdffiller\LaravelSlack\Handlers\BaseHandler
-     * @throws \Exception
+     * @return \Pdffiller\LaravelSlack\Handlers\BaseHandler|null
      */
-    private function getHandler(Request $request): BaseHandler
+    private function getHandler(Request $request): ?BaseHandler
     {
         $handlers = collect($this->config->get('handlers'))
             ->map(function (string $handlerClassName) use ($request) {
@@ -67,9 +69,9 @@ class HandleRequestController extends Controller
             return $handler->shouldBeHandled();
         })->first();
 
-        if (!$handler) {
-            throw new \Exception("There is no handler for this request");
-        }
+        //        if (!$handler) {
+        //            throw new \Exception("There is no handler for this request");
+        //        }
 
         return $handler;
     }
