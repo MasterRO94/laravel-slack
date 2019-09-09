@@ -13,6 +13,7 @@ use Illuminate\Support\Collection;
 class Attachment implements Arrayable
 {
     public const DEFAULT_TYPE = 'default';
+    public const DEFAULT_COLOR = '#D3D3D3';
 
     /**
      * @var string
@@ -139,6 +140,45 @@ class Attachment implements Arrayable
     public function addField(AttachmentField $field): self
     {
         $this->fields->push($field);
+
+        return $this;
+    }
+
+    /**
+     * @param string $name
+     * @param string $text
+     * @param string $value
+     *
+     * @return \Pdffiller\LaravelSlack\RequestBody\Json\Attachment
+     */
+    public function addButton(string $name, string $text, string $value = ""): self
+    {
+        $action = new AttachmentAction();
+        $action->setType(AttachmentAction::BUTTON_TYPE);
+        $action->setName($name);
+        $action->setText($text);
+        $action->setValue($value);
+
+        $this->addAction($action);
+
+        return $this;
+    }
+
+    /**
+     * @param string $title
+     * @param string $value
+     * @param bool $short
+     *
+     * @return \Pdffiller\LaravelSlack\RequestBody\Json\Attachment
+     */
+    public function addInfoField(string $title, string $value, bool $short = true): self
+    {
+        $field = new AttachmentField();
+        $field->setTitle($title);
+        $field->setValue($value);
+        $field->setShort($short);
+
+        $this->addField($field);
 
         return $this;
     }

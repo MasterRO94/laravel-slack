@@ -157,6 +157,55 @@ class JsonBodyObject implements Arrayable
     }
 
     /**
+     * @param string $callbackID
+     * @param string $fallback
+     * @param string $color
+     */
+    public function addAttachmentWithButtons(string $callbackID, string $fallback = "", string $color = Attachment::DEFAULT_COLOR): Attachment
+    {
+        $attahment = new Attachment();
+        $attahment->setCallbackId($callbackID);
+        $attahment->setFallback($fallback);
+        $attahment->setColor($color);
+
+        $this->addAttachment($attahment);
+
+        return $attahment;
+    }
+
+    /**
+     * @param string $fallback
+     *
+     * @return $this
+     */
+    public function addAttachmentWithFields(string $fallback = ""): Attachment
+    {
+        $attahment = new Attachment();
+        $attahment->setFallback($fallback);
+
+        $this->addAttachment($attahment);
+
+        return $attahment;
+    }
+
+    /**
+     * @param string $text
+     * @param string $color
+     *
+     * @return $this
+     */
+    public function addAttachmentWithText(string $text, string $color = Attachment::DEFAULT_COLOR): self
+    {
+        $attahment = new Attachment();
+        $attahment->setText($text);
+        $attahment->setColor($color);
+
+        $this->addAttachment($attahment);
+
+        return $this;
+    }
+
+    /**
      * @return \Illuminate\Support\Collection
      */
     public function getAttachments(): Collection
