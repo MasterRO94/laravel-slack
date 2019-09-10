@@ -4,6 +4,8 @@ namespace Pdffiller\LaravelSlack\RequestBody\Json;
 
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
+use Pdffiller\LaravelSlack\RequestBody\Json\AttachmentField;
+use Pdffiller\LaravelSlack\RequestBody\Json\AttachmentAction;
 
 /**
  * Class Attachment
@@ -49,6 +51,11 @@ class Attachment implements Arrayable
      * @var \Illuminate\Support\Collection
      */
     private $actions;
+
+    public static function create()
+    {
+        return new static();
+    }
 
     /**
      * Attachment constructor.
@@ -121,6 +128,36 @@ class Attachment implements Arrayable
     }
 
     /**
+     * @param \Pdffiller\LaravelSlack\RequestBody\Json\AttachmentField $field
+     *
+     * @return \Pdffiller\LaravelSlack\RequestBody\Json\Attachment
+     */
+    public function addField(AttachmentField $field): self
+    {
+        $this->fields->push($field);
+
+        return $this;
+    }
+
+
+    /**
+     * @param array $fields
+     */
+    public function addFields(array $fields)
+    {
+        $this->fields = new Collection();
+        collect($fields)->each(function ($field, $key) {
+            if ($field instanceof AttachmentField) {
+                $this->addField($field);
+            } else {
+                $this->addField(AttachmentField::createFromArray($field));
+            }
+        });
+
+        return $this;
+    }
+
+    /**
      * @param \Pdffiller\LaravelSlack\RequestBody\Json\AttachmentAction $action
      *
      * @return \Pdffiller\LaravelSlack\RequestBody\Json\Attachment
@@ -133,52 +170,19 @@ class Attachment implements Arrayable
     }
 
     /**
-     * @param \Pdffiller\LaravelSlack\RequestBody\Json\AttachmentField $field
-     *
-     * @return \Pdffiller\LaravelSlack\RequestBody\Json\Attachment
+     * @param array $actions
      */
-    public function addField(AttachmentField $field): self
+    public function addActions(array $actions)
     {
-        $this->fields->push($field);
+        $this->actions = new Collection();
 
-        return $this;
-    }
-
-    /**
-     * @param string $name
-     * @param string $text
-     * @param string $value
-     *
-     * @return \Pdffiller\LaravelSlack\RequestBody\Json\Attachment
-     */
-    public function addButton(string $name, string $text, string $value = ""): self
-    {
-        $action = new AttachmentAction();
-        $action->setType(AttachmentAction::BUTTON_TYPE);
-        $action->setName($name);
-        $action->setText($text);
-        $action->setValue($value);
-
-        $this->addAction($action);
-
-        return $this;
-    }
-
-    /**
-     * @param string $title
-     * @param string $value
-     * @param bool $short
-     *
-     * @return \Pdffiller\LaravelSlack\RequestBody\Json\Attachment
-     */
-    public function addInfoField(string $title, string $value, bool $short = true): self
-    {
-        $field = new AttachmentField();
-        $field->setTitle($title);
-        $field->setValue($value);
-        $field->setShort($short);
-
-        $this->addField($field);
+        collect($actions)->each(function ($action, $key) {
+            if ($action instanceof AttachmentAction) {
+                $this->addAction($action);
+            } else {
+                $this->addAction(AttachmentAction::createFromArray($action));
+            }
+        });
 
         return $this;
     }

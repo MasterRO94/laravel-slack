@@ -4,13 +4,14 @@ namespace Pdffiller\LaravelSlack\RequestBody\Json;
 
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
+use Pdffiller\LaravelSlack\RequestBody\BaseRequestBody;
 
 /**
  * Class JsonBodyObject
  *
  * @package Pdffiller\LaravelSlack\RequestBody\Json
  */
-class JsonBodyObject implements Arrayable
+class JsonBodyObject extends BaseRequestBody implements Arrayable
 {
     /**
      * @var string
@@ -152,55 +153,6 @@ class JsonBodyObject implements Arrayable
     public function addAttachment(Attachment $attachment): self
     {
         $this->attachments->push($attachment);
-
-        return $this;
-    }
-
-    /**
-     * @param string $callbackID
-     * @param string $fallback
-     * @param string $color
-     */
-    public function addAttachmentWithButtons(string $callbackID, string $fallback = "", string $color = Attachment::DEFAULT_COLOR): Attachment
-    {
-        $attahment = new Attachment();
-        $attahment->setCallbackId($callbackID);
-        $attahment->setFallback($fallback);
-        $attahment->setColor($color);
-
-        $this->addAttachment($attahment);
-
-        return $attahment;
-    }
-
-    /**
-     * @param string $fallback
-     *
-     * @return $this
-     */
-    public function addAttachmentWithFields(string $fallback = ""): Attachment
-    {
-        $attahment = new Attachment();
-        $attahment->setFallback($fallback);
-
-        $this->addAttachment($attahment);
-
-        return $attahment;
-    }
-
-    /**
-     * @param string $text
-     * @param string $color
-     *
-     * @return $this
-     */
-    public function addAttachmentWithText(string $text, string $color = Attachment::DEFAULT_COLOR): self
-    {
-        $attahment = new Attachment();
-        $attahment->setText($text);
-        $attahment->setColor($color);
-
-        $this->addAttachment($attahment);
 
         return $this;
     }

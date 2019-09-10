@@ -37,6 +37,11 @@ class Dialog implements Arrayable
      */
     private $elements;
 
+    public static function create()
+    {
+        return new static();
+    }
+
     /**
      * Dialog constructor.
      */

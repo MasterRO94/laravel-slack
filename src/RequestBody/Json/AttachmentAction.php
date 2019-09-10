@@ -3,6 +3,7 @@
 namespace Pdffiller\LaravelSlack\RequestBody\Json;
 
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Support\Arr;
 
 /**
  * Class AttachmentAction
@@ -37,6 +38,37 @@ class AttachmentAction implements Arrayable
      * @var string
      */
     private $style;
+
+    public static function create()
+    {
+        return new static();
+    }
+
+    public static function createFromArray(array $array)
+    {
+        if (! self::validateArray($array)) {
+            throw new \Exception("Field array should contain 'text', 'name' and 'value' options");
+        }
+
+        $self = new static();
+        $self->setText($array['text']);
+
+        $self->setName($array['name']);
+        $self->setValue($array['value']);
+        if (Arr::has($array, 'type')) {
+            $self->setType($array['type']);
+        }
+        if (Arr::has($array, 'style')) {
+            $self->setText($array['style']);
+        }
+
+        return $self;
+    }
+
+    public function __construct()
+    {
+        $this->type = self::BUTTON_TYPE;
+    }
 
     /**
      * @param string|null $type
@@ -110,5 +142,17 @@ class AttachmentAction implements Arrayable
             'value' => $this->value,
             'style' => $this->style,
         ];
+    }
+
+    /**
+     * @param array $array
+     *
+     * @return bool
+     */
+    private static function validateArray(array $array)
+    {
+        return Arr::has($array, 'text') &&
+               Arr::has($array, 'name') &&
+               Arr::has($array, 'value');
     }
 }

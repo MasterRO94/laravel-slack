@@ -29,6 +29,11 @@ class DialogElement implements Arrayable
      */
     private $name;
 
+    public static function create()
+    {
+        return new static();
+    }
+
     /**
      * @param string $type
      *
