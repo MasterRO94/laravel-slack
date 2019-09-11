@@ -47,7 +47,7 @@ class LaravelSlackPlugin
     /**
      * @param \Pdffiller\LaravelSlack\AvailableMethods\AbstractMethodInfo $method
      *
-     * @return \Pdffiller\LaravelSlack\RequestBody\Json\JsonBodyObject
+     * @return \Pdffiller\LaravelSlack\RequestBody\Multipart\FileItemObject|\Pdffiller\LaravelSlack\RequestBody\Json\JsonBodyObject
      */
     public function buildMessage(AbstractMethodInfo $method): BaseRequestBody
     {
@@ -66,7 +66,7 @@ class LaravelSlackPlugin
      */
     public function sendMessage(BaseRequestBody $message = null): array
     {
-        return $this->slackApi->post($this->method, $this->message->toArray());
+        return $this->slackApi->post($this->method, $message ? $message->toArray() : $this->message->toArray());
     }
 
     /**
