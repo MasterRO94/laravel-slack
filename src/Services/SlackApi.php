@@ -43,7 +43,7 @@ class SlackApi
      * @return array
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function post(AbstractMethodInfo $method, array $body, Model $model): array
+    public function post(AbstractMethodInfo $method, array $body, Model $model = null): array
     {
         $botToken = $this->config->get('bot-token');
         $url = $method->getUrl();
@@ -75,8 +75,8 @@ class SlackApi
         $dbRecord->ts = $response['ts'];
         $dbRecord->channel = $response['channel'];
         if ($model) {
-            $dbRecord->model_id = $model->id ?? $model->uuid;
-            $dbRecord->model_path = get_class($model);
+            $dbRecord->model_id = $model->getKey();
+            $dbRecord->model = get_class($model);
         }
         $dbRecord->save();
     }

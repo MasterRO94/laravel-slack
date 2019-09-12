@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property string $ts
  * @property string $channel
- * @property string $model_path
+ * @property string $model
  * @property string $model_id
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\LaravelSlackMessage newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\LaravelSlackMessage newQuery()
@@ -26,7 +26,7 @@ class LaravelSlackMessage extends Model
         'id',
         'ts',
         'channel',
-        'model_path',
+        'model',
         'model_id',
     ];
 }

@@ -74,7 +74,8 @@ class LaravelSlackPlugin
      */
     public function sendMessage(BaseRequestBody $message = null): array
     {
-        return $this->slackApi->post($this->method, $message ? $message->toArray() : $this->message->toArray());
+        return $this->slackApi->post($this->method, $message ? $message->toArray() : $this->message->toArray(),
+            $this->model);
     }
 
     /**

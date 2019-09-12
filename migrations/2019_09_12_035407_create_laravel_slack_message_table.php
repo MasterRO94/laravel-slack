@@ -17,7 +17,7 @@ class CreateLaravelSlackMessageTable extends Migration
             $table->increments('id');
             $table->string('ts');
             $table->string('channel');
-            $table->string('model_path')->nullable();
+            $table->string('model')->nullable();
             $table->string('model_id')->nullable();
             $table->timestamps();
         });
