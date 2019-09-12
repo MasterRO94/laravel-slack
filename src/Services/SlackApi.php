@@ -7,6 +7,7 @@ use Illuminate\Config\Repository;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Pdffiller\LaravelSlack\AvailableMethods\AbstractMethodInfo;
+use Pdffiller\LaravelSlack\AvailableMethods\ChatPostMessage;
 use Pdffiller\LaravelSlack\Models\LaravelSlackMessage;
 
 /**
@@ -60,7 +61,9 @@ class SlackApi
 
         $decodedResponse = \GuzzleHttp\json_decode($response->getBody(), true);
 
-        $this->saveMessage($decodedResponse, $model);
+        if ($method instanceof ChatPostMessage) {
+            $this->saveMessage($decodedResponse, $model);
+        }
 
         return $decodedResponse;
     }
