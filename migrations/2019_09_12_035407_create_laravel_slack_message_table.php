@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLaravelSlackPluginTable extends Migration
+class CreateLaravelSlackMessageTable extends Migration
 {
     /**
      * Run the migrations.
