@@ -13,3 +13,9 @@ Publish config-file:
 ```bash
 php artisan vendor:publish --provider="Pdffiller\LaravelSlack\LaravelSlackServiceProvider"
 ```
+
+Run migrations:
+
+```bash
+php artisan migrate
+```

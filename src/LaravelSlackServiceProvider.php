@@ -27,5 +27,8 @@ class LaravelSlackServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../config/laravel-slack-plugin.php' => config_path('laravel-slack-plugin.php'),
         ], 'config');
+        $this->publishes([
+            __DIR__ . '/../migrations/' => database_path('migrations'),
+        ], 'migrations');
     }
 }

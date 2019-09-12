@@ -166,6 +166,34 @@ class JsonBodyObject extends BaseRequestBody implements Arrayable
     }
 
     /**
+     * @param \Illuminate\Support\Collection $attachments
+     *
+     * @return \Pdffiller\LaravelSlack\RequestBody\Json\JsonBodyObject
+     */
+    public function setAttachments(Collection $attachments): self
+    {
+        $this->attachments = $attachments;
+
+        return $this;
+    }
+
+    /**
+     * @param \Illuminate\Support\Collection $attachments
+     *
+     * @return \Pdffiller\LaravelSlack\RequestBody\Json\JsonBodyObject
+     */
+    public function addAttachments(Collection $attachments): self
+    {
+        collect($attachments)->each(function ($attachment, $key) {
+            if ($attachment instanceof Attachment) {
+                $this->addAttachment($attachment);
+            }
+        });
+
+        return $this;
+    }
+
+    /**
      * @return array
      */
     public function toArray(): array

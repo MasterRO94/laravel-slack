@@ -3,6 +3,7 @@
 namespace Pdffiller\LaravelSlack\Services;
 
 use GuzzleHttp\Client;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Config\Repository;
 use Illuminate\Support\Arr;
 use Pdffiller\LaravelSlack\AvailableMethods\AbstractMethodInfo;
@@ -30,6 +31,11 @@ class LaravelSlackPlugin
     private $message;
 
     /**
+     * @var Model;
+     */
+    private $model;
+
+    /**
      * @var \Pdffiller\LaravelSlack\Services\SlackApi
      */
     private $slackApi;
@@ -49,8 +55,10 @@ class LaravelSlackPlugin
      *
      * @return \Pdffiller\LaravelSlack\RequestBody\Multipart\FileItemObject|\Pdffiller\LaravelSlack\RequestBody\Json\JsonBodyObject
      */
-    public function buildMessage(AbstractMethodInfo $method): BaseRequestBody
+    public function buildMessage(AbstractMethodInfo $method, Model $model = null): BaseRequestBody
     {
+        $this->model = $model;
+
         if ($method instanceof FilesUpload) {
             return $this->buildMultipartMessage($method);
         }

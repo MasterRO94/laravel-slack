@@ -4,8 +4,10 @@ namespace Pdffiller\LaravelSlack\Services;
 
 use GuzzleHttp\Client;
 use Illuminate\Config\Repository;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Pdffiller\LaravelSlack\AvailableMethods\AbstractMethodInfo;
+use Pdffiller\LaravelSlack\Models\LaravelSlackMessage;
 
 /**
  * Class SlackApi
@@ -33,6 +35,7 @@ class SlackApi
         $this->config = collect($config->get('laravel-slack-plugin'));
     }
 
+
     /**
      * @param AbstractMethodInfo $method
      * @param array $body
@@ -40,7 +43,7 @@ class SlackApi
      * @return array
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function post(AbstractMethodInfo $method, array $body): array
+    public function post(AbstractMethodInfo $method, array $body, Model $model): array
     {
         $botToken = $this->config->get('bot-token');
         $url = $method->getUrl();
@@ -55,6 +58,26 @@ class SlackApi
             $bodyType => $body,
         ]);
 
-        return \GuzzleHttp\json_decode($response->getBody(), true);
+        $decodedResponse = \GuzzleHttp\json_decode($response->getBody(), true);
+
+        $this->saveMessage($decodedResponse, $model);
+
+        return $decodedResponse;
+    }
+
+    /**
+     * @param array $response
+     * @param \Illuminate\Database\Eloquent\Model|null $model
+     */
+    private function saveMessage(array $response, Model $model = null)
+    {
+        $dbRecord = new LaravelSlackMessage();
+        $dbRecord->ts = $response['ts'];
+        $dbRecord->channel = $response['channel'];
+        if ($model) {
+            $dbRecord->model_id = $model->id ?? $model->uuid;
+            $dbRecord->model_path = get_class($model);
+        }
+        $dbRecord->save();
     }
 }
