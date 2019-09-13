@@ -34,7 +34,7 @@ Run migrations:
 php artisan migrate
 ```
 
-This is the contents of the published config file:
+This is the contents of the published `laravel-slack-plugin.php` config file:
 
 ```php
 return [
@@ -237,3 +237,52 @@ $laravelSlackPlugin->buildMessage(new DialogOpen())
                    );
 $laravelSlackPlugin->sendMessage();
 ```
+
+## Handling Interactive Components
+
+Plugin supports handling interacrtions with buttons and dialogs. All requests from slack are sent to the `/slack/handle` plugin's endpoint. So this URL should be added to the `Interactive Components` section in your Slack app. OAuth Access Token and Verification token from Slack App should be added to your project's .env file.
+
+Plugin has convenient system of handlers for processing all interactions.
+Both Attachment and Dialog have `callback_id` parameter. After every interaction with button or dialog slack sends request to the `/slack/handle` endpoint. `callback_id` parameter is included in the request payload, so all requests can be distinguished by this parameter.
+So, one handler should be implemented for the requests of one `callback_id` type.
+
+Plugin has `Pdffiller\LaravelSlack\Handlers\BaseHandler` class which has this methods:
+- `shouldBeHandled()`
+- `handle()`
+
+In your project you need to implement your own handlers and extend plugin's `BaseHandler` class.
+
+### Handler example 
+
+```php
+use Pdffiller\LaravelSlack\Handlers\BaseHandler;
+
+class CustomHandler extends BaseHandler
+{    
+    // check if this handler should be executed
+    public function shouldBeHandled()
+    {
+        $payload = json_decode($this->request->get('payload'), true);
+        $callBackId = Arr::get($payload, 'callback_id');
+
+        return $callBackId === 'some-callback-id';
+    }
+    
+    public function handle()
+    {
+        $payload = json_decode($this->request->get('payload'), true);
+        // ...
+    }
+}
+```
+
+Handler should be added to the `handlers` section in the generated `laravel-slack-plugin.php` config file in your project.
+
+```php
+'handlers' => [
+        \App\Slack\Handlers\CustomHandler::class,
+        ...
+]
+```
+
+
