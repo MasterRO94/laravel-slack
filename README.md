@@ -76,7 +76,7 @@ Accepted content type for `files.upload` method is `multipart/form-data`.
 
 For building and sending messages `Pdffiller\LaravelSlack\Services\LaravelSlackPlugin` service can be injected to your code.
 Service has 2 methods:
-- `buildMessage((AbstractMethodInfo $method), [Model $model])`
+- `buildMessage((AbstractMethodInfo $method), [Model $model], [string $options])`
 - `sendMessage([$message])`
 
 Instances of these classes can be used as a `$method` parameter:
@@ -90,6 +90,7 @@ Eloquent models can be used as a not obligatory `$body` parameter.
 All sent slack messages via `chat.postMessage` method are saved in the database in the `laravel_slack_message` table.
 Slack message `ts` and `channel` are saved for every message.
 If eloquent model is sent as the `$body` parameter to the `buildMessage` method, model's primary key and model's path are also saved.
+If json options are sent as a $options parameter to the `buildMessage` method, it will be also saved in the db.
 You can then use `ts` and `channel` parameters in `chat.update` method in order to update existing slack message.
 
 #### Sending plain text message
@@ -229,7 +230,7 @@ $laravelSlackPlugin->buildMessage(new DialogOpen())
                            ->setCallbackId('will-be-used-in-handler')
                            ->setTitle('Title')
                            ->setSubmitLabel('Save')
-                           ->setState(json_encode([]))
+                           //->setState(json_encode([]))
                            ->addElement(DialogElement::create()
                                              ->setName('reason')
                                              ->setLabel('.')
