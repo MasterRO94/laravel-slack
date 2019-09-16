@@ -26,6 +26,7 @@ class LaravelSlackMessage extends Model
         'id',
         'ts',
         'channel',
+        'options',
         'model',
         'model_id',
     ];
