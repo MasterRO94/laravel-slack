@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $channel
  * @property string $model
  * @property string $model_id
+ * @property string $options
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\LaravelSlackMessage newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\LaravelSlackMessage newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\LaravelSlackMessage query()

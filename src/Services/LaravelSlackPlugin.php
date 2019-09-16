@@ -36,6 +36,11 @@ class LaravelSlackPlugin
     private $model;
 
     /**
+     * @var mixed
+     */
+    private $options;
+
+    /**
      * @var \Pdffiller\LaravelSlack\Services\SlackApi
      */
     private $slackApi;
@@ -52,12 +57,15 @@ class LaravelSlackPlugin
 
     /**
      * @param \Pdffiller\LaravelSlack\AvailableMethods\AbstractMethodInfo $method
+     * @param \Illuminate\Database\Eloquent\Model|null $model
+     * @param null $options
      *
-     * @return \Pdffiller\LaravelSlack\RequestBody\Multipart\FileItemObject|\Pdffiller\LaravelSlack\RequestBody\Json\JsonBodyObject
+     * @return \Pdffiller\LaravelSlack\RequestBody\BaseRequestBody
      */
-    public function buildMessage(AbstractMethodInfo $method, Model $model = null): BaseRequestBody
+    public function buildMessage(AbstractMethodInfo $method, Model $model = null, $options = null): BaseRequestBody
     {
         $this->model = $model;
+        $this->options = $options;
 
         if ($method instanceof FilesUpload) {
             return $this->buildMultipartMessage($method);
@@ -75,7 +83,7 @@ class LaravelSlackPlugin
     public function sendMessage(BaseRequestBody $message = null): array
     {
         return $this->slackApi->post($this->method, $message ? $message->toArray() : $this->message->toArray(),
-            $this->model);
+            $this->model, $this->options);
     }
 
     /**

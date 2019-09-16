@@ -38,13 +38,14 @@ class SlackApi
 
 
     /**
-     * @param AbstractMethodInfo $method
+     * @param \Pdffiller\LaravelSlack\AvailableMethods\AbstractMethodInfo $method
      * @param array $body
+     * @param \Illuminate\Database\Eloquent\Model|null $model
+     * @param null $options
      *
      * @return array
-     * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function post(AbstractMethodInfo $method, array $body, Model $model = null): array
+    public function post(AbstractMethodInfo $method, array $body, Model $model = null, $options = null): array
     {
         $botToken = $this->config->get('bot-token');
         $url = $method->getUrl();
@@ -62,7 +63,7 @@ class SlackApi
         $decodedResponse = \GuzzleHttp\json_decode($response->getBody(), true);
 
         if ($method instanceof ChatPostMessage) {
-            $this->saveMessage($decodedResponse, $model);
+            $this->saveMessage($decodedResponse, $model, $options);
         }
 
         return $decodedResponse;
@@ -71,8 +72,9 @@ class SlackApi
     /**
      * @param array $response
      * @param \Illuminate\Database\Eloquent\Model|null $model
+     * @param null $options
      */
-    private function saveMessage(array $response, Model $model = null)
+    private function saveMessage(array $response, Model $model = null, $options = null)
     {
         $dbRecord = new LaravelSlackMessage();
         $dbRecord->ts = $response['ts'];
@@ -80,6 +82,9 @@ class SlackApi
         if ($model) {
             $dbRecord->model_id = $model->getKey();
             $dbRecord->model = get_class($model);
+        }
+        if ($options) {
+            $dbRecord->options = $options;
         }
         $dbRecord->save();
     }
