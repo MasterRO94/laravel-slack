@@ -71,10 +71,8 @@ Plugin supports this methods from slack api:
 - [dialog.open](https://api.slack.com/methods/dialog.open)
 - [files.upload](https://api.slack.com/methods/files.upload)
 
-Accepted content type for `chat.postMessage`, `chat.update` and `dialog.open` method is `application/json`.
-Accepted content type for `files.upload` method is `multipart/form-data`.
+You can inject service `Pdffiller\LaravelSlack\Services\LaravelSlackPlugin` into your method.
 
-For building and sending messages `Pdffiller\LaravelSlack\Services\LaravelSlackPlugin` service can be injected to your code.
 Service has 2 methods:
 - `buildMessage((AbstractMethodInfo $method), [Model $model], [string $options])`
 - `sendMessage([$message])`
@@ -95,23 +93,17 @@ You can then use `ts` and `channel` parameters in `chat.update` method in order 
 
 #### Sending plain text message
 ```php
-use Pdffiller\LaravelSlack\Services\LaravelSlackPlugin;
-use Pdffiller\LaravelSlack\AvailableMethods\ChatPostMessage;
-
-$laravelSlackPlugin = resolve(LaravelSlackPlugin::class);
-$laravelSlackPlugin->buildMessage(new ChatPostMessage())
-                   ->setChannel("#ABCDEF")
+$slack = resolve(\Pdffiller\LaravelSlack\Services\LaravelSlackPlugin::class);
+$slack->buildMessage(new \Pdffiller\LaravelSlack\AvailableMethods\ChatPostMessage())
+                   ->setChannel("#ABCDEF") //channel id from web app
                    ->setText("asdsadsad");
-$laravelSlackPlugin->sendMessage();
+$slack->sendMessage();
 ```
 
 #### Update slack message
 ```php
-use Pdffiller\LaravelSlack\Services\LaravelSlackPlugin;
-use Pdffiller\LaravelSlack\AvailableMethods\ChatUpdate;
-
-$laravelSlackPlugin = resolve(LaravelSlackPlugin::class);
-$laravelSlackPlugin->buildMessage(new ChatUpdate())
+$laravelSlackPlugin = resolve(\Pdffiller\LaravelSlack\Services\LaravelSlackPlugin::class);
+$laravelSlackPlugin->buildMessage(new \Pdffiller\LaravelSlack\AvailableMethods\ChatUpdate())
                    ->setChannel("#ABCDEF")
                    ->setTs('1405894322.002768')
                    ->setText("updated text");
@@ -155,9 +147,9 @@ $laravelSlackPlugin->buildMessage(new ChatPostMessage())
                                              [                                  // add from array
                                                  'title' => 'User Id',
                                                  'value' => 10
-                                                 /*, 'short'=true/false*/
+                                                 /*, 'short'=true/false*/   //todo:explain
                                              ],
-                                             AttachmentField::create()          // add from object
+                                             AttachmentField::create()          // add from object todo:create from constructor
                                                         ->setTitle('Team Id')
                                                         ->setValue(30),
                                          ]
@@ -177,17 +169,17 @@ $laravelSlackPlugin->buildMessage(new ChatPostMessage())
                    ->setChannel("#ABCDEF")
                    ->addAttachment(Attachment::create()
                        ->setCallbackId('callback-id-is-used-in-handler')
-                       ->setFallback('Fallback text')
-                       ->setColor('#36a64f')
+                       ->setFallback('Fallback text') //todo explain
+                       ->setColor('#36a64f') //todo default ?
                        ->addActions([
                                [
                                    'name' => 'button-name',
                                    'text' => 'Accept',
                                    'value' => 1,
-                                   /*'style' => '...',
+                                   /*'style' => '...', //todo explain
                                    'type'  => 'button'*/
                                ],
-                               AttachmentAction::create()
+                               AttachmentAction::create() //todo create from constructor
                                    ->setName('button-name')
                                    ->setText('Decline')
                                    ->setValue(0)
@@ -203,15 +195,15 @@ use Pdffiller\LaravelSlack\Services\LaravelSlackPlugin;
 
 $laravelSlackPlugin = resolve(LaravelSlackPlugin::class);
 $laravelSlackPlugin->buildMessage(new FilesUpload())
-                   ->setChannel("#ABCDEF")
-                    ->setFilePath("...")
-                    ->setFileName("...);
+                    ->setChannel("#ABCDEF")
+                    ->setFilePath("...") //todo explain
+                    ->setFileName("...); 
 $laravelSlackPlugin->sendMessage();
 ```
 
 ### Open [dialogs](https://api.slack.com/methods/dialog.open) after messages interaction
 
-Dialog can be opened after interaction with message, for example clicking on button. After interaction with message, `trigger_id` is sent in the request payload. This parameter is used in the `dialog.open` method.
+Dialog can be opened after interaction with message, for example clicking on a button. After interaction with message, `trigger_id` is sent in the request payload. This parameter is used in the `dialog.open` method.
 
 For building dialog plugin has this classes:
 - `Pdffiller\LaravelSlack\RequestBody\Json\Dialog`
@@ -225,7 +217,7 @@ use Pdffiller\LaravelSlack\Services\LaravelSlackPlugin;
 
 $laravelSlackPlugin = resolve(LaravelSlackPlugin::class);
 $laravelSlackPlugin->buildMessage(new DialogOpen())
-                   ->setTriggerId('trigger_id')
+                   ->setTriggerId('trigger_id') //todo: explain
                    ->setDialog(Dialog::create()
                            ->setCallbackId('will-be-used-in-handler')
                            ->setTitle('Title')
@@ -241,7 +233,7 @@ $laravelSlackPlugin->sendMessage();
 
 ## Handling Interactive Components
 
-Plugin supports handling interacrtions with buttons and dialogs. All requests from slack are sent to the `/slack/handle` plugin's endpoint. So this URL should be added to the `Interactive Components` section in your Slack app. OAuth Access Token and Verification token from Slack App should be added to your project's .env file.
+Plugin supports handling interacrtions with buttons and dialogs. All requests from slack are sent to the `/slack/handle` //todo: make editable. (config('slack-plugin.url')// plugin's endpoint. So this URL should be added to the `Interactive Components` section in your Slack app. OAuth Access Token and Verification token from Slack App should be added to your config file.
 
 Plugin has convenient system of handlers for processing all interactions.
 Both Attachment and Dialog have `callback_id` parameter. After every interaction with button or dialog slack sends request to the `/slack/handle` endpoint. `callback_id` parameter is included in the request payload, so all requests can be distinguished by this parameter.
@@ -251,7 +243,7 @@ Plugin has `Pdffiller\LaravelSlack\Handlers\BaseHandler` class which has this me
 - `shouldBeHandled()`
 - `handle()`
 
-In your project you need to implement your own handlers and extend plugin's `BaseHandler` class.
+In your project you should implement your own handlers on top of plugin's `BaseHandler` class.
 
 ### Handler example 
 
