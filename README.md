@@ -57,7 +57,7 @@ return [
     /*
      * Endpoint URL
      */
-    'laravel-slack-plugin-url' => 'slack/handle'
+    'endpoint-url' => 'slack/handle'
 ];
 ```
 
