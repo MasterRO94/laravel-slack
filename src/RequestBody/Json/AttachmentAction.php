@@ -39,12 +39,25 @@ class AttachmentAction implements Arrayable
      */
     private $style;
 
-    public static function create()
+    /**
+     * @param string $name
+     * @param string $text
+     * @param string $value
+     *
+     * @return \Pdffiller\LaravelSlack\RequestBody\Json\AttachmentAction
+     */
+    public static function create(string $name = "", string $text = "", string $value = "")
     {
-        return new static();
+        return new static($name, $text, $value);
     }
 
-    public static function createFromArray(array $array)
+    /**
+     * @param array $array
+     *
+     * @return \Pdffiller\LaravelSlack\RequestBody\Json\AttachmentAction
+     * @throws \Exception
+     */
+    public static function createFromArray(array $array): self
     {
         if (! self::validateArray($array)) {
             throw new \Exception("Field array should contain 'text', 'name' and 'value' options");
@@ -65,8 +78,18 @@ class AttachmentAction implements Arrayable
         return $self;
     }
 
-    public function __construct()
+    /**
+     * AttachmentAction constructor.
+     *
+     * @param string $name
+     * @param string $text
+     * @param string $value
+     */
+    public function __construct(string $name = "", string $text = "", string $value = "")
     {
+        $this->name = $name;
+        $this->text = $text;
+        $this->value = $value;
         $this->type = self::BUTTON_TYPE;
     }
 
@@ -149,7 +172,7 @@ class AttachmentAction implements Arrayable
      *
      * @return bool
      */
-    private static function validateArray(array $array)
+    private static function validateArray(array $array): bool
     {
         return Arr::has($array, 'text') &&
                Arr::has($array, 'name') &&

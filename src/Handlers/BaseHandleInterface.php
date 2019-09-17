@@ -9,7 +9,7 @@ namespace Pdffiller\LaravelSlack\Handlers;
  */
 interface BaseHandleInterface
 {
-    public function shouldBeHandled();
+    public function shouldBeHandled(): bool;
 
     public function handle();
 }

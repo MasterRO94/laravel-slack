@@ -22,7 +22,7 @@ class ResponseArrayToObjectBodyConverter
      *
      * @return \Pdffiller\LaravelSlack\RequestBody\Json\JsonBodyObject
      */
-    public function convert(array $data)
+    public function convert(array $data): JsonBodyObject
     {
         $jsonObject = new JsonBodyObject();
         $jsonObject->setChannel(Arr::get($data, 'channel'));
@@ -65,7 +65,8 @@ class ResponseArrayToObjectBodyConverter
     }
 
     /**
-     * @param \App\RequestBody\Json\Attachment $attachment
+     * /**
+     * @param \Pdffiller\LaravelSlack\RequestBody\Json\Attachment $attachment
      * @param array $fields
      */
     private function processFields(Attachment $attachment, array $fields)

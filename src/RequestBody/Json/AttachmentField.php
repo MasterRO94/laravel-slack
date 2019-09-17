@@ -27,14 +27,39 @@ class AttachmentField implements Arrayable
      */
     private $short;
 
-    public static function create()
+    /**
+     * @param string $title
+     * @param string $value
+     *
+     * @return \Pdffiller\LaravelSlack\RequestBody\Json\AttachmentField
+     */
+    public static function create(string $title = "", string $value = ""): self
     {
-        return new static();
+        return new static($title, $value);
     }
 
-    public static function createFromArray(array $array)
+    /**
+     * AttachmentField constructor.
+     *
+     * @param string $title
+     * @param string $value
+     */
+    public function __construct(string $title = "", string $value = "")
     {
-        if (! self::validateArray($array)) {
+        $this->title = "";
+        $this->value = "";
+        $this->short = true;
+    }
+
+    /**
+     * @param array $array
+     *
+     * @return \Pdffiller\LaravelSlack\RequestBody\Json\AttachmentField
+     * @throws \Exception
+     */
+    public static function createFromArray(array $array): self
+    {
+        if (!self::validateArray($array)) {
             throw new \Exception("Field array should contain 'title' and 'value' options");
         }
 
@@ -103,7 +128,7 @@ class AttachmentField implements Arrayable
      *
      * @return bool
      */
-    private static function validateArray(array $array)
+    private static function validateArray(array $array): bool
     {
         return Arr::has($array, 'value') &&
                Arr::has($array, 'title');

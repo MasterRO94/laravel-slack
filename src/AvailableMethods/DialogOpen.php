@@ -12,7 +12,7 @@ class DialogOpen extends AbstractMethodInfo
     /**
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return 'dialog.open';
     }
@@ -20,7 +20,7 @@ class DialogOpen extends AbstractMethodInfo
     /**
      * @return string
      */
-    public function getMethod()
+    public function getMethod(): string
     {
         return self::POST_METHOD;
     }
@@ -28,7 +28,7 @@ class DialogOpen extends AbstractMethodInfo
     /**
      * @return string
      */
-    public function getUrl()
+    public function getUrl(): string
     {
         return 'https://slack.com/api/dialog.open';
     }
@@ -36,7 +36,7 @@ class DialogOpen extends AbstractMethodInfo
     /**
      * @return array
      */
-    public function getHeaders()
+    public function getHeaders(): array
     {
         return [
             'Content-type'  => 'application/json',
@@ -47,7 +47,7 @@ class DialogOpen extends AbstractMethodInfo
     /**
      * @return string
      */
-    public function getBodyType()
+    public function getBodyType(): string
     {
         return self::JSON_BODY_TYPE;
     }

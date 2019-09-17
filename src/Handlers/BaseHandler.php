@@ -26,7 +26,7 @@ abstract class BaseHandler implements BaseHandleInterface
         $this->request = $request;
     }
 
-    abstract public function shouldBeHandled();
+    abstract public function shouldBeHandled(): bool;
 
     abstract public function handle();
 }

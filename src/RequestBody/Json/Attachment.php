@@ -52,7 +52,10 @@ class Attachment implements Arrayable
      */
     private $actions;
 
-    public static function create()
+    /**
+     * @return \Pdffiller\LaravelSlack\RequestBody\Json\Attachment
+     */
+    public static function create(): self
     {
         return new static();
     }
@@ -63,6 +66,7 @@ class Attachment implements Arrayable
     public function __construct()
     {
         $this->type = self::DEFAULT_TYPE;
+        $this->color = self::DEFAULT_COLOR;
         $this->fields = new Collection();
         $this->actions = new Collection();
     }
@@ -142,8 +146,10 @@ class Attachment implements Arrayable
 
     /**
      * @param array $fields
+     *
+     * @return \Pdffiller\LaravelSlack\RequestBody\Json\Attachment
      */
-    public function addFields(array $fields)
+    public function addFields(array $fields): self
     {
         $this->fields = new Collection();
         collect($fields)->each(function ($field, $key) {
@@ -171,8 +177,10 @@ class Attachment implements Arrayable
 
     /**
      * @param array $actions
+     *
+     * @return \Pdffiller\LaravelSlack\RequestBody\Json\Attachment
      */
-    public function addActions(array $actions)
+    public function addActions(array $actions): self
     {
         $this->actions = new Collection();
 

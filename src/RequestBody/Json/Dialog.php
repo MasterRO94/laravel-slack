@@ -37,7 +37,10 @@ class Dialog implements Arrayable
      */
     private $elements;
 
-    public static function create()
+    /**
+     * @return \Pdffiller\LaravelSlack\RequestBody\Json\Dialog
+     */
+    public static function create(): self
     {
         return new static();
     }

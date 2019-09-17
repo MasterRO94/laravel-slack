@@ -13,9 +13,9 @@ abstract class AbstractMethodInfo
     const JSON_BODY_TYPE = 'json';
     const MULTIPART_BODY_TYPE = 'multipart';
 
-    abstract public function getName();
-    abstract public function getMethod();
-    abstract public function getUrl();
-    abstract public function getHeaders();
-    abstract public function getBodyType();
+    abstract public function getName(): string ;
+    abstract public function getMethod(): string ;
+    abstract public function getUrl(): string ;
+    abstract public function getHeaders(): array;
+    abstract public function getBodyType(): string;
 }

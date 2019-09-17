@@ -29,7 +29,10 @@ class DialogElement implements Arrayable
      */
     private $name;
 
-    public static function create()
+    /**
+     * @return \Pdffiller\LaravelSlack\RequestBody\Json\DialogElement
+     */
+    public static function create(): self
     {
         return new static();
     }

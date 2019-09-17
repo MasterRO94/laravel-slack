@@ -2,11 +2,6 @@
 
 return [
     /*
-     * OAuth Access Token from Slack App
-     */
-    'user-token' => env('SLACK_USER_TOKEN', null),
-
-    /*
      * Bot User OAuth Access from Slack App
      */
     'bot-token' => env('SLACK_BOT_TOKEN', null),
@@ -21,4 +16,9 @@ return [
      */
     'handlers' => [
     ],
+
+    /*
+     * Endpoint URL
+     */
+    'endpoint-url' => 'slack/handle'
 ];
