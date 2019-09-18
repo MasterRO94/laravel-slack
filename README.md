@@ -57,7 +57,7 @@ return [
     /*
      * Endpoint URL
      */
-    'laravel-slack-plugin-url' => 'slack/handle'
+    'endpoint-url' => 'slack/handle'
 ];
 ```
 
@@ -139,7 +139,7 @@ $slack->buildMessage(new \Pdffiller\LaravelSlack\AvailableMethods\ChatPostMessag
                                  [                           
                                      'title' => 'User Id',
                                      'value' => 10
-                                     /*, 'short'=true/false*/  // short is true by default, it means that next field                                                                           is shown on the same line
+                                     /*, 'short'=true/false*/  // short is true by default, it means that next field is shown on the same line
                                  ],
                                  \Pdffiller\LaravelSlack\RequestBody\Json\AttachmentField::create('Team Id', 10),
                              ]
@@ -175,7 +175,7 @@ $slack->sendMessage();
 $slack = resolve(\Pdffiller\LaravelSlack\Services\LaravelSlackPlugin::class);
 $slack->buildMessage(new \Pdffiller\LaravelSlack\AvailableMethods\FilesUpload())
                 ->setChannel("#ABCDEF")
-                ->setFilePath("/uploads.one.txt") //path to file in your project or web
+                ->setFilePath("/uploads/one.txt") //path to file in your project or web
                 ->setFileName("one.txt); 
 $slack->sendMessage();
 ```
