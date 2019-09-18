@@ -46,8 +46,8 @@ class AttachmentField implements Arrayable
      */
     public function __construct(string $title = "", string $value = "")
     {
-        $this->title = "";
-        $this->value = "";
+        $this->title = $title;
+        $this->value = $value;
         $this->short = true;
     }
 
