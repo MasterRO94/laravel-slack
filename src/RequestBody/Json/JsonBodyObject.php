@@ -29,6 +29,11 @@ class JsonBodyObject extends BaseRequestBody implements Arrayable
     private $asUser;
 
     /**
+     * @var string
+     */
+    private $username;
+
+    /**
      * @var boolean
      */
     private $replaceOriginal;
@@ -122,6 +127,18 @@ class JsonBodyObject extends BaseRequestBody implements Arrayable
     }
 
     /**
+     * @param string $username
+     *
+     * @return \Pdffiller\LaravelSlack\RequestBody\Json\JsonBodyObject
+     */
+    public function setUsername(string $username): self
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    /**
      * @param string $text
      *
      * @return JsonBodyObject
@@ -201,6 +218,7 @@ class JsonBodyObject extends BaseRequestBody implements Arrayable
         return [
             'channel'          => $this->channel,
             'trigger_id'       => $this->triggerId,
+            'username'         => $this->username,
             'ts'               => $this->ts,
             'as_user'          => $this->asUser,
             'replace_original' => $this->replaceOriginal,
