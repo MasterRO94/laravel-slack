@@ -72,7 +72,7 @@ class AttachmentAction implements Arrayable
             $self->setType($array['type']);
         }
         if (Arr::has($array, 'style')) {
-            $self->setText($array['style']);
+            $self->setStyle($array['style']);
         }
 
         return $self;

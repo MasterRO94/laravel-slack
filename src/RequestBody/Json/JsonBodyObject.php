@@ -46,6 +46,11 @@ class JsonBodyObject extends BaseRequestBody implements Arrayable
     /**
      * @var string
      */
+    private $threadTs;
+
+    /**
+     * @var string
+     */
     private $text;
 
     /**
@@ -122,6 +127,18 @@ class JsonBodyObject extends BaseRequestBody implements Arrayable
     public function setTs(string $ts): self
     {
         $this->ts = $ts;
+
+        return $this;
+    }
+
+    /**
+     * @param string $threadTs
+     *
+     * @return \Pdffiller\LaravelSlack\RequestBody\Json\JsonBodyObject
+     */
+    public function setThreadTs(string $threadTs): self
+    {
+        $this->threadTs = $threadTs;
 
         return $this;
     }
@@ -220,6 +237,7 @@ class JsonBodyObject extends BaseRequestBody implements Arrayable
             'trigger_id'       => $this->triggerId,
             'username'         => $this->username,
             'ts'               => $this->ts,
+            'thread_ts'        => $this->threadTs,
             'as_user'          => $this->asUser,
             'replace_original' => $this->replaceOriginal,
             'text'             => $this->text,
