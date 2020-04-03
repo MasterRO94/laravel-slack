@@ -34,6 +34,11 @@ class JsonBodyObject extends BaseRequestBody implements Arrayable
     private $username;
 
     /**
+     * @var string
+     */
+    private $iconUrl;
+
+    /**
      * @var boolean
      */
     private $replaceOriginal;
@@ -156,6 +161,18 @@ class JsonBodyObject extends BaseRequestBody implements Arrayable
     }
 
     /**
+     * @param string $iconUrl
+     *
+     * @return \Pdffiller\LaravelSlack\RequestBody\Json\JsonBodyObject
+     */
+    public function setIconUrl(string $iconUrl): self
+    {
+        $this->iconUrl = $iconUrl;
+
+        return $this;
+    }
+
+    /**
      * @param string $text
      *
      * @return JsonBodyObject
@@ -236,6 +253,7 @@ class JsonBodyObject extends BaseRequestBody implements Arrayable
             'channel'          => $this->channel,
             'trigger_id'       => $this->triggerId,
             'username'         => $this->username,
+            'icon_url'         => $this->iconUrl,
             'ts'               => $this->ts,
             'thread_ts'        => $this->threadTs,
             'as_user'          => $this->asUser,

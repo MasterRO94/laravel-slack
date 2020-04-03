@@ -43,6 +43,11 @@ class Attachment implements Arrayable
     private $color;
 
     /**
+     * @var string
+     */
+    private $imageUrl;
+
+    /**
      * @var \Illuminate\Support\Collection
      */
     private $fields;
@@ -127,6 +132,18 @@ class Attachment implements Arrayable
     public function setColor(?string $color): self
     {
         $this->color = $color;
+
+        return $this;
+    }
+
+    /**
+     * @param string|null $imageUrl
+     *
+     * @return \Pdffiller\LaravelSlack\RequestBody\Json\Attachment
+     */
+    public function setImageUrl(?string $imageUrl): self
+    {
+        $this->imageUrl = $imageUrl;
 
         return $this;
     }
@@ -220,6 +237,7 @@ class Attachment implements Arrayable
             'fallback'        => $this->fallback,
             'callback_id'     => $this->callbackId,
             'color'           => $this->color,
+            'image_url'       => $this->imageUrl,
             'attachment_type' => $this->type,
             'text'            => $this->text,
             'fields'          => $this->fields->toArray(),
