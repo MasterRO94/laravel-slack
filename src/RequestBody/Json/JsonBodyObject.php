@@ -26,7 +26,7 @@ class JsonBodyObject extends BaseRequestBody implements Arrayable
     /**
      * @var boolean
      */
-    private $asUser;
+    private $asUser = true;
 
     /**
      * @var string
