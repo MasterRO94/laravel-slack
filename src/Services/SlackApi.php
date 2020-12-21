@@ -63,7 +63,18 @@ class SlackApi
         $decodedResponse = \GuzzleHttp\json_decode($response->getBody(), true);
 
         if (Arr::has($decodedResponse, 'ok') && !$decodedResponse['ok']) {
-            throw new \Exception('Failed to send message: ' . json_encode($decodedResponse));
+            $total = [
+                'response' => $decodedResponse,
+            ];
+
+            if ($model) {
+                $total['model']['id'] = $model->id ?? null;
+                $total['model']['class'] = get_class($model);
+            }
+
+            $total['message'] = $body;
+
+            throw new \Exception('Failed to send message: ' . json_encode($total));
         }
 
         if ($method instanceof ChatPostMessage) {
