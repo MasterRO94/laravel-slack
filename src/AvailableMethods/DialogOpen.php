@@ -39,7 +39,7 @@ class DialogOpen extends AbstractMethodInfo
     public function getHeaders(): array
     {
         return [
-            'Content-type'  => 'application/json',
+            'Content-type'  => 'application/json; charset=utf-8',
             'Authorization' => "",
         ];
     }
