@@ -24,11 +24,6 @@ class JsonBodyObject extends BaseRequestBody implements Arrayable
     private $triggerId;
 
     /**
-     * @var boolean
-     */
-    private $asUser = true;
-
-    /**
      * @var string
      */
     private $username;
@@ -96,18 +91,6 @@ class JsonBodyObject extends BaseRequestBody implements Arrayable
     public function setTriggerId(string $triggerId): self
     {
         $this->triggerId = $triggerId;
-
-        return $this;
-    }
-
-    /**
-     * @param bool $asUser
-     *
-     * @return JsonBodyObject
-     */
-    public function setAsUser(bool $asUser): self
-    {
-        $this->asUser = $asUser;
 
         return $this;
     }
@@ -256,7 +239,6 @@ class JsonBodyObject extends BaseRequestBody implements Arrayable
             'icon_url'         => $this->iconUrl,
             'ts'               => $this->ts,
             'thread_ts'        => $this->threadTs,
-            'as_user'          => $this->asUser,
             'replace_original' => $this->replaceOriginal,
             'text'             => $this->text,
             'dialog'           => $this->dialog ? $this->dialog->toArray() : null,
